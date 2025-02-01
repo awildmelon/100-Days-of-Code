@@ -1,13 +1,28 @@
-dict1 = {"name": "John", "age": 25}
-dict2 = {"name": "Kevin", "age": 18}
+# from turtle import Turtle, Screen
 
-list1 = [dict1, dict2]
+# timmy = Turtle()
+# print(timmy)
 
-print(list1[1]["name"])
+# my_screen = Screen()
+# my_screen.title("Turtle Graphics")
+# my_screen.bgcolor("black")
 
-list2 = ["apples", "oranges"]
-list3 = ["bananas", "grapes"]
+# timmy.shape("turtle")
+# timmy.color("pink")
+# for i in range(8):
+#     timmy.forward(100)
+#     timmy.right(45)
 
-dict3 = {"fruit1": list2, "fruit2": list3}
 
-print(dict3["fruit1"][1])
+
+# print(my_screen.canvheight)
+
+# my_screen.exitonclick()
+
+from prettytable import PrettyTable
+
+table = PrettyTable()
+table.add_column("Pokemon Name", ["Pikachu", "Squirtle", "Charmander", "Bulbasaur"])
+table.add_column("Type", ["Electric", "Water", "Fire", "Grass"])
+table.align = "l"
+print(table)
