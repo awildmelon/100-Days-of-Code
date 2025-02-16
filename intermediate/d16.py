@@ -1,9 +1,9 @@
 
 # Day 16 - Coffee Machine OOP - 24/01/2025
 
-from packages.menu import Menu
-from packages.coffee_maker import CoffeeMaker
-from packages.money_machine import MoneyMachine
+from packages.d16.menu import Menu
+from packages.d16.coffee_maker import CoffeeMaker
+from packages.d16.money_machine import MoneyMachine
 
 menu = Menu()
 coffee_maker = CoffeeMaker()
