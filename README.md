@@ -2,10 +2,10 @@ All the solutions is written by me, however, the coding problems that are solved
 
 This repo is simply for me to save and share my progress as I go through each of the lessons.
 
-You'll need to install the required modules to run some of the code.
+Notes:
 
+- You'll need to install the required modules to run some of the code.
+- If you wish to learn about how this code works and the details/specifics of each problem, it is explained in Dr. Angela Yu's course.
 
-
-If you wish to learn about how this code works and the details/specifics of each problem, it is explained in her course.
 
 Course Link: https://www.udemy.com/course/100-days-of-code/
