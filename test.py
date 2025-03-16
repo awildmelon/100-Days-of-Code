@@ -1,28 +1,21 @@
-# from turtle import Turtle, Screen
+from turtle import Turtle, Screen
+import random
 
-# timmy = Turtle()
-# print(timmy)
+timmy = Turtle()
+print(timmy)
 
-# my_screen = Screen()
-# my_screen.title("Turtle Graphics")
-# my_screen.bgcolor("black")
+screen = Screen()
+screen.title("Turtle Graphics")
+screen.bgcolor("white")
 
-# timmy.shape("turtle")
-# timmy.color("pink")
-# for i in range(8):
-#     timmy.forward(100)
-#     timmy.right(45)
+timmy.shape("turtle")
+timmy.speed("fastest")
 
+for i in range(72):
+    timmy.color(random.random(), random.random(), random.random())
+    timmy.circle(100)
+    timmy.left(5)
 
+print(screen.canvheight)
 
-# print(my_screen.canvheight)
-
-# my_screen.exitonclick()
-
-from prettytable import PrettyTable
-
-table = PrettyTable()
-table.add_column("Pokemon Name", ["Pikachu", "Squirtle", "Charmander", "Bulbasaur"])
-table.add_column("Type", ["Electric", "Water", "Fire", "Grass"])
-table.align = "l"
-print(table)
+screen.exitonclick()
