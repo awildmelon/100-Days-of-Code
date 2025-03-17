@@ -1,3 +1,4 @@
+
 # Day 15 - Coffee Machine - 21/01/2025
 
 coffee_type = input("What would you like? (espresso/latte/cappuccino): ").lower()
