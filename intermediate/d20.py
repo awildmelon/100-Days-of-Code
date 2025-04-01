@@ -1,3 +1,4 @@
+
 # Day 20 & 21 - Snake Game - 23/03/2025
 
 from turtle import Screen

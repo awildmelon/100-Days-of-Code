@@ -1,3 +1,4 @@
+
 # Day 18 - The Hirst Painting Project - 15/03/2025
 
 import colorgram
