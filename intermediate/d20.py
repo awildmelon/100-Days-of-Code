@@ -60,14 +60,15 @@ while game_on:
         snek.head.xcor() > 290 or snek.head.xcor() < -290 or
         snek.head.ycor() > 290 or snek.head.ycor() < -290
     ):
-        game_on = False
-        score.game_over()
+        score.reset()
+        snek.reset()
 
     # Detect collision with tail
 
     for segment in snek.segments[1:]:
         if snek.head.distance(segment) < 10:
-            game_on = False
-            score.game_over()
+            score.reset()
+            snek.reset()
+            break
 
 screen.exitonclick()
