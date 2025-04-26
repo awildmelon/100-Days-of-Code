@@ -3,6 +3,7 @@
 
 import pandas as pd
 import turtle as t
+import os
 
 # Screen setup
 
@@ -14,15 +15,14 @@ screen.tracer(0)
 
 # Set GIF file from packages as background
 
-screen.bgpic("c:/Users/kevin/OneDrive/Documents/coding/python/100 Days of Python/100-Days-of-Code/intermediate/packages/d25/blank_states_img.gif")
+base_path = os.path.dirname(__file__)
+screen.bgpic(os.path.join(base_path, "packages", "d25", "blank_states_img.gif"))
 
 # Data loading
 
-data = pd.read_csv("c:/Users/kevin/OneDrive/Documents/coding/python/100 Days of Python/100-Days-of-Code/intermediate/packages/d25/50_states.csv")
+data = pd.read_csv(os.path.join(base_path, "packages", "d25", "50_states.csv"))
 states = data["state"].to_list()
-x = data["x"].to_list()
-y = data["y"].to_list()
-state_coords = {state: (x[i], y[i]) for i, state in enumerate(states)}
+state_coords = {state: (x, y) for state, x, y in zip(states, data["x"], data["y"])}
 
 # Guessing game
 
@@ -63,10 +63,8 @@ if correct_guesses < 50:
     
     # Missed states saved as a CSV file
 
-    missed_states_df = pd.DataFrame(missed_states, columns=["Missed States"])
-    missed_states_df.to_csv(
-        "c:/Users/kevin/OneDrive/Documents/coding/python/100 Days of Python/100-Days-of-Code/intermediate/packages/d25/missed_states.csv",
-        index=False
+    pd.DataFrame({"Missed States": missed_states}).to_csv(
+        os.path.join(base_path, "packages", "d25", "missed_states.csv"), index=False
     )
 else:
     game_result = "You Win! :)"
