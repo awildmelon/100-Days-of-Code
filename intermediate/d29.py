@@ -4,8 +4,43 @@
 from tkinter import *
 from tkinter import messagebox
 import os
+import random
+
+try:
+    import pyperclip
+except ImportError:
+    pyperclip = None
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
+def generate_password():
+    letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    numbers = "0123456789"
+    symbols = "!@#$%^&*()_+"
+
+    num_letters = random.randint(8, 10)
+    num_numbers = random.randint(2, 4)
+    num_symbols = random.randint(2, 4)
+
+    password_list = []
+
+    for _ in range(num_letters):
+        password_list.append(random.choice(letters))
+
+    for _ in range(num_numbers):
+        password_list.append(random.choice(numbers))
+
+    for _ in range(num_symbols):
+        password_list.append(random.choice(symbols))
+
+    random.shuffle(password_list)
+
+    password = ''.join(password_list)
+
+    password_entry.delete(0, END)
+    password_entry.insert(0, password)
+
+    pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -14,7 +49,9 @@ def save_credentials():
     email = email_entry.get()
     password = password_entry.get()
 
-    if website and email and password:
+    is_ok = messagebox.askokcancel(title="Confirmation", message=f"These are the details entered:\n \nWebsite: {website}\nEmail: {email}\nPassword: {password}\n\nDo you want to save these credentials?")
+
+    if website and email and password and is_ok:
         file_path = os.path.join(base_path, "packages", "d29", "password_data.txt")
         
         with open(file_path, "a") as file:
@@ -27,6 +64,8 @@ def save_credentials():
 
         messagebox.showinfo(title="Success", message="Login credentials saved successfully!")
 
+    elif not is_ok:
+        return
     else:
         messagebox.showwarning(title="Warning", message="Please fill in all fields before saving.")
 
@@ -68,7 +107,7 @@ password_entry = Entry(width=30)
 password_entry.grid(row=3, column=1, sticky="W")
 
 # Buttons
-generate_button = Button(text="Generate Password", width=15)
+generate_button = Button(text="Generate Password", width=15, command=generate_password)
 generate_button.grid(row=3, column=2, sticky="W")
 
 add_button = Button(text="Add", width=44, command=save_credentials)
