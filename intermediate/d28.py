@@ -10,17 +10,33 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Comic Sans MS"
-WORK_MIN = 1
+WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
+the_timer = None
+timer_running = False
 
 # ---------------------------- TIMER RESET ------------------------------- # 
+
+def reset_timer():
+    global reps, timer_running
+    timer_running = False
+    reps = 0
+    check_marks.config(text="")
+    canvas.itemconfig(title_label, text="Timer", fill=GREEN)
+    canvas.itemconfig(timer_text, text="00:00")
+    window.after_cancel(the_timer)
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
 def start_timer():
-    global reps
+    global reps, timer_running
+
+    if timer_running:
+        return
+
+    timer_running = True
     reps += 1
 
     if reps % 8 == 0:
@@ -32,14 +48,18 @@ def start_timer():
     else:
         count_down(WORK_MIN * 60)
         canvas.itemconfig(title_label, text="Work", fill=GREEN)
+        check_marks.config(text="✓" * (reps // 2))
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
 def count_down(count):
     canvas.itemconfig(timer_text, text=f"{count // 60:02d}:{count % 60:02d}")
+    global timer_running
     if count > 0:
-        window.after(1000, count_down, count - 1)
+        global the_timer
+        the_timer = window.after(1000, count_down, count - 1)
     else:
+        timer_running = False
         start_timer()
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -63,10 +83,12 @@ canvas.grid(row=0, column=1)
 
 
 start_button = Button(window, text="Start", highlightthickness=0, command=start_timer)
-reset_button = Button(window, text="Reset", highlightthickness=0, command=None)
+reset_button = Button(window, text="Reset", highlightthickness=0, command=reset_timer)
 
 start_button.grid(row=1, column=0)
 reset_button.grid(row=1, column=2)
 
+check_marks = Label(window, text="", bg=YELLOW, fg=GREEN, font=(FONT_NAME, 15, "bold"))
+check_marks.grid(row=1, column=1)
 
 window.mainloop()
