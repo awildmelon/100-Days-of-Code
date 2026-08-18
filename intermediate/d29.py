@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter import messagebox
 import os
 import random
+import json
 
 try:
     import pyperclip
@@ -40,7 +41,8 @@ def generate_password():
     password_entry.delete(0, END)
     password_entry.insert(0, password)
 
-    pyperclip.copy(password)
+    if pyperclip is not None:
+        pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -49,13 +51,31 @@ def save_credentials():
     email = email_entry.get()
     password = password_entry.get()
 
-    is_ok = messagebox.askokcancel(title="Confirmation", message=f"These are the details entered:\n \nWebsite: {website}\nEmail: {email}\nPassword: {password}\n\nDo you want to save these credentials?")
+    is_ok = messagebox.askokcancel(
+        title="Confirmation",
+        message=f"These are the details entered:\n \nWebsite: {website}\nEmail: {email}\nPassword: {password}\n\nDo you want to save these credentials?"
+    )
 
     if website and email and password and is_ok:
-        file_path = os.path.join(base_path, "packages", "d29", "password_data.txt")
-        
-        with open(file_path, "a") as file:
-            file.write(f"{website} | {email} | {password}\n")
+        file_path = os.path.join(base_path, "packages", "d29", "password_data.json")
+
+        if os.path.exists(file_path):
+            with open(file_path, "r") as file:
+                try:
+                    data = json.load(file)
+                except json.JSONDecodeError:
+                    data = []
+        else:
+            data = []
+
+        data.append({
+            "website": website,
+            "email": email,
+            "password": password
+        })
+
+        with open(file_path, "w") as file:
+            json.dump(data, file, indent=4)
 
         website_entry.delete(0, END)
         email_entry.delete(0, END)
