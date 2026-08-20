@@ -1,0 +1,6 @@
+Hey [NAME],
+
+Happy birthday! Have a wonderful time today and enjoy lots of cake!
+
+Wishing you the best,
+[USER]
